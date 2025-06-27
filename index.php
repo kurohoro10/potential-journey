@@ -1,6 +1,7 @@
 <?php
 require_once 'core/init.php';
 
+DB::getInstance();
 ?>
 <!DOCTYPE html>
 <html lang="en">
