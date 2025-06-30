@@ -1,12 +1,14 @@
 <?php
 require_once 'core/init.php';
 
-$user = DB::getInstance()->query( "SELECT username FROM users WHERE username = ?", array( 'billy' ) );
+$user = DB::getInstance()->get( "users", array( 'username', '=', 'alex' ) );
 
 if ( ! $user->count() ) {
     echo 'No user';
 } else {
-    echo 'OK!';
+    foreach ( $user->results() as $user ) {
+        echo $user->username . '<br>';
+    }
 }
 ?>
 <!DOCTYPE html>
