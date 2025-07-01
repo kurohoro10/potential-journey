@@ -1,22 +1,11 @@
 <?php
 require_once 'core/init.php';
 
-$user = DB::getInstance()->get( "users", array( 'username', '=', 'alex' ) );
-
-if ( ! $user->count() ) {
-    echo 'No user';
-} else {
-    echo $user->first()->username;
-}
-?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>test</h1>
-</body>
-</html>
+$user = DB::getInstance()->insert( 'users', array(
+    'username' => 'Dale',
+    'password' => 'password',
+    'salt'     => 'salt',
+    'name'     => 'Dale Garett',
+    'joined'   => date('Y-m-d H:i:s'),
+    'grouped'  => 1
+));

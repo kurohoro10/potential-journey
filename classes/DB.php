@@ -72,12 +72,13 @@ class DB {
      */
     public function query( $sql, $params = array() ) {
         $this->_error = false;
-
         try {
             if ( $this->_query = $this->_pdo->prepare( $sql ) ) {
+                $x = 1;
                 if ( count( $params ) ) {
-                    foreach ( $params as $index => $param ) {
-                        $this->_query->bindValue( $index + 1, $param );
+                    foreach ( $params as $param ) {
+                        $this->_query->bindValue( $x, $param );
+                        $x++;
                     }
                 }
                 
@@ -90,7 +91,7 @@ class DB {
             }
         } catch (PDOException $e) {
             $this->_error = true;
-            $e->getMessage();
+            die("Query Error: " . $e->getMessage());
         }
 
         return $this;
@@ -130,6 +131,29 @@ class DB {
 
     public function delete( $table, $where ) {
         return $this->action( 'DELETE', $table, $where );
+    }
+
+    public function insert( $table, $fields = array() ) {
+        $keys = array_keys( $fields );
+        $values = '';
+        $x = 1;
+
+        // Add commas to values placeholder except the last value
+        foreach ($fields as $field) {
+            $values .= '?';
+            if ( $x < count( $fields ) ) {
+                $values .= ', ';
+            }
+            $x++;
+        }
+
+        $sql = "INSERT INTO {$table} (`" . implode('`, `', $keys) . "`) VALUES ({$values})";
+
+        if ( ! $this->query( $sql, array_values( $fields ) )->error() ) {
+            return true;
+        }
+
+        return false;
     }
 
     public function results() {
