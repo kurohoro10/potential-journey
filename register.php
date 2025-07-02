@@ -1,3 +1,11 @@
+<?php
+    require_once 'core/init.php';
+
+    if ( Input::exists()) {
+        echo 'Succeeded';
+    }
+?>
+
 <form action="" method="post">
     <div class="field">
         <label for="username">Username</label>
