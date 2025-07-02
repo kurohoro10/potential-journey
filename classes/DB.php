@@ -2,30 +2,22 @@
 /**
  * Class DB
  *
- * A Singleton class for database access using PDO. This class wraps PDO functionality
- * and provides methods for executing parameterized queries securely.
+ * A singleton database handler class for interacting with a MySQL database using PDO.
+ * Provides methods for querying, inserting, updating, deleting, and retrieving results.
  *
- * Key Features:
- * - Singleton pattern ensures only one PDO connection is created.
- * - Simplified query execution and error handling.
- * - Supports SELECT and DELETE operations via the `action()` helper method.
+ * Features:
+ * - Singleton pattern to maintain a single database connection.
+ * - Parameterized queries to help prevent SQL injection.
+ * - Chainable query execution with support for binding values.
+ * - Utility methods for common operations (get, insert, update, delete).
  *
- * Properties:
- * @property PDO           $_pdo       PDO instance for database connection.
- * @property PDOStatement  $_query     Last prepared PDOStatement.
- * @property bool          $_error     Flag indicating whether the last query resulted in an error.
- * @property array         $_results   Result set from the last executed query (as an array of objects).
- * @property int           $_count     Number of rows returned or affected by the last query.
+ * Usage:
+ *   $db = DB::getInstance();
+ *   $db->query("SELECT * FROM users WHERE id = ?", [1]);
+ *   $results = $db->results();
  *
- * Methods:
- * - __construct()        : Private constructor that initializes the PDO connection using Config values.
- * - getInstance()        : Returns the singleton instance of the DB class.
- * - query($sql, $params) : Prepares and executes a SQL statement with optional parameters.
- * - action($action, $table, $where): Generic method to handle SELECT and DELETE queries with a WHERE clause.
- * - get($table, $where)  : Performs a SELECT * FROM table WHERE ... query.
- * - delete($table, $where): Performs a DELETE FROM table WHERE ... query.
- * - error()              : Returns true if the last query had an error.
- * - count()              : Returns the number of rows affected or returned by the last query.
+ * Dependencies:
+ * - Requires a `Config` class with static `get()` method for fetching DB configuration.
  */
 class DB {
     private static $_instance = null;
@@ -133,6 +125,13 @@ class DB {
         return $this->action( 'DELETE', $table, $where );
     }
 
+    /**
+     * Inserts a new record into the specified table.
+     *
+     * @param string $table  The table to insert into.
+     * @param array  $fields An associative array of field names and values to insert.
+     * @return bool Returns true on success, false on failure.
+     */
     public function insert( $table, $fields = array() ) {
         $keys = array_keys( $fields );
         $values = '';
@@ -156,6 +155,14 @@ class DB {
         return false;
     }
 
+    /**
+     * Updates an existing record in the specified table.
+     *
+     * @param string $table  The table to update.
+     * @param int    $id     The ID of the record to update.
+     * @param array  $fields An associative array of field names and values to update.
+     * @return bool Returns true on success, false on failure.
+     */
     public function update( $table, $id, $fields ) {
         $set = '';
         $x = 1;
