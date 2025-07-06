@@ -10,6 +10,7 @@
  * - put($name, $value): Set a session variable.
  * - get($name): Retrieve a session variable.
  * - delete($name): Remove a session variable if it exists.
+ * - flash($name, $string): Create a user define session message that will only appear once. 
  */
 class Session {
     /**
@@ -54,6 +55,17 @@ class Session {
         }
     }
 
+    /**
+     * Set or retrieve a flash message stored in the session.
+     * 
+     * This method is typically used for temporary messages (e.g., success or error notifications)
+     * that persist for a single request. If a message already exists under the given name, it is
+     * returned and then deleted. Otherwise, the provided string is stored in the session.
+     * 
+     * @param string $name The name of the flash message.
+     * @param string $string The message to store (optional).
+     * @return string|null The existing flash message if found; otherwise null.
+     */
     public static function flash($name, $string = '') {
         if (self::exists($name)) {
             $session = self::get($name);
