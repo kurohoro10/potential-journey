@@ -27,7 +27,8 @@
             ));
 
             if ( $validation->passed() ) {
-                echo 'Passed';
+                Session::flash('success', 'You registered successfully!');
+                header('location:index.php');
             } else {
                 foreach( $validation->errors() as $error) {
                     echo $error, '<br />';
