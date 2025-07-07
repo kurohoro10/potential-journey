@@ -23,7 +23,6 @@ class Hash {
      *
      * @param int $length The length of the raw binary salt before base64 encoding.
      * @return string A base64-encoded salt string.
-     * @throws Exception If random_bytes() fails to generate secure random data.
      */
     public static function salt($length) {
         return base64_encode(random_bytes($length));
