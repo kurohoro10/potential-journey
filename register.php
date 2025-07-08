@@ -41,7 +41,7 @@
                     ));
 
                     Session::flash('home', 'You have been registered and can now log in!');
-                    Redirect::to('index.php');
+                    Redirect::to(404);
                 } catch (Exception $e) {
                     die($e->getMessage());
                 }
