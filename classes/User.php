@@ -10,9 +10,18 @@ class User {
     /**
      * @var DB The database connection instance
      */
-    private $_db,
-            $_data,
-            $_sessionName;
+    private $_db;
+
+    /**
+     * @var mixed Holds user data after a successful find operation 
+     * 
+     */
+    private $_data;
+
+    /**
+     * @var string The name of the session variable used to store username or user ID
+     */
+    private $_sessionName;
 
     /**
      * User constructor.
@@ -38,6 +47,12 @@ class User {
         }
     }
 
+    /**
+     * Finds a user by ID or username.
+     *
+     * @param mixed $user The user ID or username to search for.
+     * @return bool Returns true if the user is found, false otherwise.
+     */
     public function find($user = null) {
         if ($user) {
             $field = (is_numeric($user)) ? 'id' : 'username';
@@ -51,6 +66,13 @@ class User {
         return false;
     }
 
+    /**
+     * Logs in a user by checking the provided username and password.
+     *
+     * @param string|null $username The username of the user.
+     * @param string|null $password The password of the user.
+     * @return bool Returns true if login is successful, false otherwise.
+     */
     public function login($username = null, $password = null) {
         $user = $this->find($username);
         
@@ -63,6 +85,7 @@ class User {
         return false;
     }
 
+    
     private function data() {
         return $this->_data;
     }
