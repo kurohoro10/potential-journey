@@ -75,6 +75,6 @@
         <input type="text" name="name" id="name" value="<?php echo htmlspecialchars( Input::get( 'name' ) ); ?>">
     </div>
 
-    <input type="hidden" name="token" value="<?php echo Token::generate() ?>" />
+    <input type="hidden" name="token" value="<?php echo htmlspecialchars(Token::generate()); ?>" />
     <input type="submit" value="Register" />
 </form>
