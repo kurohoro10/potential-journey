@@ -1,10 +1,11 @@
 <?php
 
 /**
- * Class User
- *
- * Handles user-related operations such as creating new user records.
- * Relies on a database abstraction layer (DB::getInstance()) to interact with the database.
+ * class User
+ * 
+ * This class handles user-related operations such as creating a user, finding a user,
+ * logging in, and checking if a user is logged in. It interacts with the database
+ * to perform these operations and manages user sessions.
  */
 class User {
     /**
@@ -107,6 +108,11 @@ class User {
         return false;
     }
 
+    /**
+     * Logs out the user by deleting the session variable.
+     *
+     * This method effectively ends the user's session and clears any stored user data.
+     */
     public function logout() {
         Session::delete($this->_sessionName);
     }
