@@ -17,7 +17,7 @@
                 $login = $user->login($username, $password);
 
                 if ($login) {
-                    echo 'Success';
+                    Redirect::to('index.php');
                 } else {
                     echo 'Sorry, loggin in failed';
                 }

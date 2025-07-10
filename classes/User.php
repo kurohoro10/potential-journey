@@ -24,15 +24,27 @@ class User {
     private $_sessionName;
 
     /**
-     * User constructor.
-     *
-     * Initializes the database connection.
-     *
-     * @param mixed $user Optional parameter for future use (e.g., loading a specific user)
+     * @var boolean Indicates whether the user is currently logged in
      */
+    private $_isLoggedIn = false;
+
+
     public function __construct($user = null) {
         $this->_db = DB::getInstance();
         $this->_sessionName = Config::get('session/session_name');
+
+        if (!$user) {
+            if (Session::exists($this->_sessionName)) {
+                $user = Session::get($this->_sessionName);
+                if ($this->find($user)) {
+                    $this->_isLoggedIn = true;
+                } else {
+                    // Process logout
+                }
+            }
+        } else {
+            $this->find($user);
+        }
     }
 
     /**
@@ -86,7 +98,11 @@ class User {
     }
 
     
-    private function data() {
+    public function data() {
         return $this->_data;
+    }
+
+    public function isLoggedIn() {
+        return $this->_isLoggedIn;
     }
 }
