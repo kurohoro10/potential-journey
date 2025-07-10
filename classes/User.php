@@ -28,7 +28,17 @@ class User {
      */
     private $_isLoggedIn = false;
 
-
+        /**
+     * User constructor.
+     *
+     * Initializes the database connection.
+     *
+     * @param mixed $user Optional parameter to specify a user ID or username.
+     * If provided, attempts to find the user and set the logged-in status.
+     * If not provided, checks the session for an existing user.
+     * 
+     * @throws Exception If the user cannot be found or if there is an issue with the database connection.
+     */
     public function __construct($user = null) {
         $this->_db = DB::getInstance();
         $this->_sessionName = Config::get('session/session_name');
