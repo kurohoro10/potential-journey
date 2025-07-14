@@ -146,6 +146,9 @@ class User {
      * This method effectively ends the user's session and clears any stored user data.
      */
     public function logout() {
+        $this->_db->delete('users_session', array('user_id', '=', $this->data()->id));
+
+        Cookie::delete($this->_cookieName);
         Session::delete($this->_sessionName);
     }
     
