@@ -8,6 +8,7 @@
  * 
  * Responsibilities:
  * - Create new user records.
+ * - Update existing user records
  * - Find users by ID or username.
  * - Authenticate and log in users.
  * - Manage session and "remember me" cookies.
@@ -71,6 +72,7 @@ class User {
      * Creates a new user in the database.
      *
      * @param array $fields An associative array of column-value pairs for the new user.
+     * @return void
      * @throws Exception If the database insert operation fails.
      */
     public function create($fields = array()) {
@@ -79,6 +81,13 @@ class User {
         }
     }
 
+    /**
+     * Updates a user by its ID
+     * 
+     * @param array $fields An associative array of column-value pairs to be updated.
+     * @param int|null $id The user ID to update. If not provided, the ID of the currently logged-in user is used.
+     * @throws Exception If the database update operation fails.
+     */
     public function update($fields = array(), $id = null) {
         if (!$id && $this->isLoggedIn()) {
             $id = $this->data()->id;
@@ -111,8 +120,9 @@ class User {
     /**
      * Authenticates and logs in the user.
      *
-     * If credentials are not passed and the user exists, it reinitializes the session.
-     * If credentials are passed, it verifies them and sets up session and "remember me" cookie if needed.
+     * If no credentials are provided and the user already exists in memory,
+     * a session is re-established. Otherwise, it verifies the provided credentials,
+     * sets the session, and optionally sets a "remember me" cookie.
      *
      * @param string|null $username The username of the user.
      * @param string|null $password The plain-text password.
