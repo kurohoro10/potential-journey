@@ -154,6 +154,12 @@ class User {
         return false;
     }
 
+    /**
+     * Checks if the user has a specific permission.
+     *
+     * @param mixed $key The permission key to check (e.g., 'admin').
+     * @return boolean True if the user has the permission, false otherwise.
+     */
     public function hasPermission($key) {
         $group = $this->_db->get('`groups`', array('id', '=', $this->data()->groups));
         
