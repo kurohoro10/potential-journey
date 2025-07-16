@@ -154,6 +154,20 @@ class User {
         return false;
     }
 
+    public function hasPermission($key) {
+        $group = $this->_db->get('`groups`', array('id', '=', $this->data()->groups));
+        
+        
+        if ($group->count()) {
+            $permissions = json_decode($group->first()->permissions, true);
+
+            if (isset($permissions[$key]) && $permissions[$key]) {
+                return true;
+            }
+            return false;
+        }
+    }
+
     /**
      * Checks if the current user instance has valid data loaded.
      *
