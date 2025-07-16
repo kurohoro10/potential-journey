@@ -1,12 +1,32 @@
 <?php
-
 /**
- * class User
- * 
- * This class handles user-related operations such as creating a user, finding a user,
- * logging in, and checking if a user is logged in. It interacts with the database
- * to perform these operations and manages user sessions.
+ * Class User
+ *
+ * Handles all user-related operations such as registration, authentication, session handling,
+ * and user lookup. This class interacts with the database to store and retrieve user records
+ * and manages login persistence using sessions and optional cookies.
+ *
+ * Features:
+ * - User creation via the `create()` method
+ * - User lookup by ID or username via `find()`
+ * - Authentication through `login()` with optional "remember me" functionality
+ * - Session-based login state tracking
+ * - Logout functionality with session cleanup
+ *
+ * Dependencies:
+ * - DB: Handles all database interactions.
+ * - Config: Provides configuration values such as session and cookie names.
+ * - Session: Manages session data storage and retrieval.
+ * - Cookie: Manages persistent login cookies.
+ * - Hash: Provides hashing and salt functions for password verification.
+ *
+ * Usage:
+ *   $user = new User();                         // Automatically checks session
+ *   $user = new User(3);                        // Load user by ID
+ *   $user->login('username', 'password');       // Logs in user
+ *   if ($user->isLoggedIn()) { ... }            // Check login state
  */
+
 class User {
     /**
      * @var DB The database connection instance
@@ -34,7 +54,7 @@ class User {
      */
     private $_isLoggedIn = false;
 
-        /**
+    /**
      * User constructor.
      *
      * Initializes the database connection.
@@ -100,6 +120,7 @@ class User {
      *
      * @param string|null $username The username of the user.
      * @param string|null $password The password of the user.
+     * @param bool $rememeber Whether to remember the user with a cookie.
      * @return bool Returns true if login is successful, false otherwise.
      */
     public function login($username = null, $password = null, $remember = false) {
