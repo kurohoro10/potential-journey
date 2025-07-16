@@ -23,6 +23,10 @@ if ($user->isLoggedIn()) {
         echo '<p>You are an admin!</p>';
     }
 
+    if ($user->hasPermission('moderator')) {
+        echo '<p>You are an moderator!</p>';
+    }
+
 } else {
     ?>
         <p>You need to 

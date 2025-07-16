@@ -37,9 +37,10 @@
                         'salt' => $salt,
                         'name' => Input::get('name'),
                         'joined' => date('Y-m-d H:i:s'),
-                        'grouped' => 1
+                        'groups' => 1
                     ));
 
+                    Session::flash('home', 'You have been registered and can now log in!');
                     Redirect::to('index.php');
                 } catch (Exception $e) {
                     die($e->getMessage());
