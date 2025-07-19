@@ -1,3 +1,11 @@
+<?php
+if (isset($_GET['accept-cookies'])) {
+    Cookie::put('accept-cookies', 'true', 2592000);
+    // Redirect::to('./');
+}
+
+if (!Cookie::exists('accept-cookies')) :
+?>
 <div class="cookie-banner">
     <div class="container">
         <p>
@@ -6,3 +14,4 @@
         <a href="?accept-cookies" class="button">I understand</a>
     </div>
 </div>
+<?php endif; ?>

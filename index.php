@@ -21,7 +21,6 @@ if ($user->isLoggedIn()) {
     <title>Document</title>
 </head>
 <body>
-    <?php require_once('includes/cookie/cookiebanner.php'); ?>
     <p>Hello <a href="profile.php?user=<?php echo htmlspecialchars($user->data()->username); ?>"><?php echo htmlspecialchars($user->data()->username); ?></a>!</p>
 
     <ul>
@@ -41,6 +40,7 @@ if ($user->isLoggedIn()) {
         }
 
         } else {
+            require_once('includes/cookie/cookiebanner.php');
             ?>
                 <p>You need to 
                     <a href="login.php">log in</a> 
