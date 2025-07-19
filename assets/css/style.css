@@ -1,0 +1,47 @@
+.button {
+    background-color: #ccc;
+    color: #333;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    display: inline-block;
+    border: 1px solid #aaa;
+    border-bottom: 2px solid #aaa;
+}
+
+.cookie-banner {
+    overflow: hidden;
+    background: #333333dc;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    animation: slideDown 1s;
+}
+
+.cookie-banner .container {
+    margin: 0 auto;
+    width: 70%;
+    color: #f0f0f0;
+    padding: 15px;
+}
+
+.cookie-banner a {
+    color: slategray;
+}
+
+@keyframes slideDown {
+    0% {
+        opacity: 0;
+        visibility: hidden;
+        max-height: 0;
+        z-index: -1;
+    }
+
+    100% {
+        opacity: 1;
+        visibility: visible;
+        max-height: 112px;
+        z-index: 1;
+    }
+}

@@ -16,11 +16,12 @@ if ($user->isLoggedIn()) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="<?php echo require_once 'assets/css/style.css'; ?>">
+    <link rel="stylesheet" href="assets/css/style.css">
     <script defer src="/assets/js/script.js"></script>
     <title>Document</title>
 </head>
 <body>
+    <?php require_once('includes/cookie/cookiebanner.php'); ?>
     <p>Hello <a href="profile.php?user=<?php echo htmlspecialchars($user->data()->username); ?>"><?php echo htmlspecialchars($user->data()->username); ?></a>!</p>
 
     <ul>
